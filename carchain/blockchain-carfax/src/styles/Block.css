@@ -1,0 +1,12 @@
+.block-card {
+  max-width: 500px;
+  height: 600px;
+}
+
+td {
+  text-align: left;
+}
+
+.font-title {
+    font-family: Montserrat, sans-serif;
+}
