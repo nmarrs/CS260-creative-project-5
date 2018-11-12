@@ -5,6 +5,10 @@ var cors = require('cors')
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+require('./models/Cars');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/carDB', { useMongoClient: true });
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 

@@ -47,7 +47,7 @@ class App extends Component {
     this.props.blockchain.addBlock(block)
     console.log('Updated Blockchain:', this.props.blockchain)
     this.saveCarData()
-    // this.saveBlockchain()
+    this.saveBlockchain()
   }
 
   performAddMaintenanceLog = (type, date, vendor) => {
@@ -57,7 +57,7 @@ class App extends Component {
     this.props.blockchain.addBlock(block)
     console.log('Updated Blockchain:', this.props.blockchain)
     this.saveCarData()
-    // this.saveBlockchain()
+    this.saveBlockchain()
   }
 
   saveCarData = async() => {
@@ -75,20 +75,20 @@ class App extends Component {
     })
   }
 
-  // saveBlockchain = async() => {
-  //   var data = JSON.stringify(this.props.blockchain)
-  //   console.log(data)
-  //   var url = "http://ec2-54-218-255-196.us-west-2.compute.amazonaws.com:4200/blockchain"
-  //   fetch(url, {
-  //     method: 'post',
-  //     headers: {
-  //       "Content-Type": "application/json; charset=utf-8",
-  //     },
-  //     body: data
-  //   }).then(function(response) {
-  //     console.log('successfully saved data!')
-  //   })
-  // }
+  saveBlockchain = async() => {
+    var data = JSON.stringify(this.props.blockchain)
+    console.log(data)
+    var url = "http://ec2-54-218-255-196.us-west-2.compute.amazonaws.com:4200/blockchain"
+    fetch(url, {
+      method: 'post',
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+      body: data
+    }).then(function(response) {
+      console.log('successfully saved data!')
+    })
+  }
 
   render() {
     const {

@@ -11,18 +11,18 @@ export class Transaction {
 }
 
 export class Block {
-  constructor() {
-    this.index = 0
-    this.previousHash = ''
-    this.hash = ''
-    this.nonce = 0
-    this.transactions = []
+  constructor(index = 0, previousHash = '', hash = '', nonce = 0, transactions = []) {
+    this.index = index
+    this.previousHash = previousHash
+    this.hash = hash
+    this.nonce = nonce
+    this.transactions = transactions
   }
 
   addTransaction(transaction) {
     this.transactions.push(transaction)
 
-    switch(transaction.type) {
+    switch (transaction.type) {
       case 'transferOwnership':
         transaction.asset.transferOwnership(transaction.to, transaction.from)
         break;
@@ -46,42 +46,42 @@ export class Blockchain {
   }
 
   addBlock(block) {
-      if(this.blocks.length === 0) {
-        block.previousHash = "0000000000000000"
-        block.hash = this.generateHash(block)
-      }
-
-      this.blocks.push(block)
-   }
-
-   getNextBlock(transactions) {
-      let block = new Block()
-
-      transactions.forEach(function(transaction){
-        block.addTransaction(transaction)
-      })
-
-      let previousBlock = this.getPreviousBlock()
-      block.index = this.blocks.length
-      block.previousHash = previousBlock.hash
+    if (this.blocks.length === 0) {
+      block.previousHash = "0000000000000000"
       block.hash = this.generateHash(block)
-      return block
-   }
+    }
 
-   generateHash(block) {
-     let hash = sha256(block.key)
+    this.blocks.push(block)
+  }
 
-     while(!hash.startsWith('0')) {
-       block.nonce += 1
-       hash = sha256(block.key)
-     }
+  getNextBlock(transactions) {
+    let block = new Block()
 
-     return hash
-   }
+    transactions.forEach(function(transaction) {
+      block.addTransaction(transaction)
+    })
 
-   getPreviousBlock() {
-     return this.blocks[this.blocks.length - 1]
-   }
+    let previousBlock = this.getPreviousBlock()
+    block.index = this.blocks.length
+    block.previousHash = previousBlock.hash
+    block.hash = this.generateHash(block)
+    return block
+  }
+
+  generateHash(block) {
+    let hash = sha256(block.key)
+
+    while (!hash.startsWith('0')) {
+      block.nonce += 1
+      hash = sha256(block.key)
+    }
+
+    return hash
+  }
+
+  getPreviousBlock() {
+    return this.blocks[this.blocks.length - 1]
+  }
 }
 
 export class Car {

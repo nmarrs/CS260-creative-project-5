@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+var mongoose = require('mongoose');
+var Car = mongoose.model('Car');
+
 var testCarData = {
     car1: {
         VIN: '5FNYF3H52DB030806',
@@ -60,6 +63,21 @@ var testCarData = {
     }
 }
 
+var blocks = []
+
+// Initially add two car objects to the database
+// var car1 = new Car(testCarData.car1)
+// car1.save()
+// var car2 = new Car(testCarData.car2)
+// car2.save()
+
+function initializeCars(carData) {
+    var car1 = new Car(carData.car1)
+    car1.save()
+    var car2 = new Car(carData.car2)
+    car2.save()
+}
+
 var testBlockchain = {
     blocks: [{
         hash: "05cb71f35c3115a138a8f975bc946f5a470f7850570860c0662bc0e7ce513377",
@@ -76,23 +94,31 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/cardata', function(req, res) {
-    res.send(testCarData);
+    Car.find(function(err, cars) {
+        if (err) {
+            return next(err)
+        }
+        else {
+            res.send(cars)
+        }
+    })
 });
 
 router.post('/cardata', function(req, res) {
     console.log("In CarData Post");
-    testCarData = req.body;
+    Car.collection.drop();
+    initializeCars(req.body)
     res.end(`{"success" : "Updated Successfully", "status" : 200`);
 });
 
-// router.get('/blockchain', function(req, res) {
-            //     res.send(testBlockchain);
-            // });
+router.get('/blockchain', function(req, res) {
+    res.send(blocks);
+});
 
-            // router.post('/blockchain', function(req, res) {
-            //     console.log("In Blockchain Post");
-            //     testBlockchain = req.body;
-            //     res.end(`{"success" : "Updated Successfully", "status" : 200`);
-            // });
+router.post('/blockchain', function(req, res) {
+    console.log("In Blockchain Post");
+    blocks = req.body;
+    res.end(`{"success" : "Updated Successfully", "status" : 200`);
+});
 
 module.exports = router;
