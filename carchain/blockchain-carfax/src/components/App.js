@@ -107,6 +107,25 @@ class App extends Component {
         <header className="App-header shadow">
           <img src={logo} className="App-logo shadow" alt="logo" />
         </header>
+        <h3 className='m-3'><i class="fas fa-info-circle"></i> Explanation</h3>
+        <div className='w-50 mx-auto'>
+        <h4><i class="fas fa-air-freshener"></i> What's New</h4>
+        <p>I added onto my previous creative project and implemented a MongoDB backend to store / persist data. Now the blockchain actually persists! Yay!</p>
+        <h4><i class="far fa-lightbulb"></i> Idea</h4>
+        <p>
+        This project is a proof of concept of a business application of blockchain technology. Specifically to the used car industry.
+        Imagine if, when buying a used car, you could reliably know who's owned the car in the past, how the car has been driven, and that the car always has
+        a comprehensive maintainance log. Implementing blockchain into the peer to peer used car marketplace would help facilitate greater trust and transparency and eradicate market inefficiences.
+        </p>
+        <h4><i class="fas fa-chalkboard-teacher"></i> How To</h4>
+        <p>
+        This proof of concept allows you manage a few cars in your inventory found below (both Tesla <i class="fas fa-car"></i>s of course).
+        You can transfer ownership or add a new maintainance log.
+        The beauty of the proof of concept comes in that, every time you make an action on a car, the corresponding block is written in the
+        blockchain found at the top of page automatically. Since this project is written in React, these changes occur seamlessly, without
+        the need to refresh the page.
+        </p>
+        </div>
         <h3 className='mt-3'><i className="fas fa-th"></i> Current Blockchain</h3>
           <div className='container'>
             <div className='row'>
